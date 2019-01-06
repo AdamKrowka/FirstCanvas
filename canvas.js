@@ -1,8 +1,27 @@
 var canvas = document.querySelector('canvas');
 var body = document.getElementById('body');
-var height = body.clientHeight;
-var width = body.clientWidth;
-console.log(height);
+var slidery = document.getElementById('slidery');
+
+
+var ballsCount = document.getElementById('BallsCountRange');
+var output = document.getElementById("BallsCountP");
+output.innerHTML = '  Piłki: ' + ballsCount.value;
+ballsCount.oninput = function () {
+    output.innerHTML = '  Piłki: ' + this.value;
+}
+var ile = ballsCount.value;
+
+var ballsSpeed = document.getElementById('SpeedRange');
+var output1 = document.getElementById("SpeedP");
+output1.innerHTML = '  Prędkość: ' + ballsSpeed.value;
+ballsSpeed.oninput = function () {
+    output1.innerHTML = '  Prędkość: ' + this.value;
+}
+var speed = ballsSpeed.value;
+
+
+var height = body.clientHeight - 80;
+var width = body.clientWidth - 20;
 canvas.height = height;
 canvas.width = width;
 
@@ -10,7 +29,7 @@ canvas.width = width;
 var c = canvas.getContext('2d');
 var mouseDistance = 100;
 var CircleCount = 200;
-var speed = 5;
+// var speed = 2;
 
 function ColorRand(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -24,7 +43,6 @@ var mouse = {
 window.addEventListener('mousemove', function (event) {
     mouse.x = event.x;
     mouse.y = event.y;
-    console.log(mouse);
 })
 
 
@@ -36,6 +54,9 @@ function Circle(r, x, y, xd, yd, color) {
     this.y = y;
     this.xd = xd;
     this.yd = yd;
+    this.normalxd = xd;
+    this.normalyd = yd;
+
     this.color = color;
     this.newColor = color;
 
@@ -87,34 +108,73 @@ function Circle(r, x, y, xd, yd, color) {
 
 var circles = [];
 
-for (i = 0; i < CircleCount; i++) {
+// for (i = 0; i < ile; i++) {
 
+//     var red = ColorRand(0, 255);
+//     var green = ColorRand(0, 255);
+//     var blue = ColorRand(0, 255);
+//     var color = 'rgb(' + red + ' , ' + green + ' , ' + blue + ' ) ';
+
+//     var r = (Math.random() * 30) + 3;
+//     var x = Math.random() * (canvas.width - 2 * r) + r;
+//     var y = Math.random() * (canvas.height - 2 * r) + r;
+//     var xd = (Math.random() - 0.5 * speed);
+//     var yd = (Math.random() - 0.5 * speed);
+//     circles.push(new Circle(r, x, y, xd, yd, color));
+// }
+
+function addCircle() {
     var red = ColorRand(0, 255);
     var green = ColorRand(0, 255);
     var blue = ColorRand(0, 255);
     var color = 'rgb(' + red + ' , ' + green + ' , ' + blue + ' ) ';
-
     var r = (Math.random() * 30) + 3;
     var x = Math.random() * (canvas.width - 2 * r) + r;
     var y = Math.random() * (canvas.height - 2 * r) + r;
-    var xd = (Math.random() - 0.5 * speed);
-    var yd = (Math.random() - 0.5 * speed);
+    var xd = (Math.random() - 0.5);
+    var yd = (Math.random() - 0.5);
     circles.push(new Circle(r, x, y, xd, yd, color));
 }
 
-console.log(circles);
+function removeCircle() {
+    circles.pop();
+}
 
+
+var iterator = 0;
+var speedCheck = ballsSpeed.value;
 
 function move() {
 
 
+    var height = body.clientHeight - slidery.clientHeight - 40;
+    var width = body.clientWidth - 20;
     canvas.height = height;
     canvas.width = width;
     requestAnimationFrame(move);
+
+    speed = ballsSpeed.value;
+
     c.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < circles.length; i++) {
+        if (speed != speedCheck) {
+            circles[i].xd = circles[i].normalxd * speed;
+            circles[i].yd = circles[i].normalyd * speed;
+
+        }
         circles[i].bounce();
+
         c.strokeStyle = 'transparent';
+    }
+    speedCheck = speed;
+
+    ile = ballsCount.value;
+    if (iterator < ile) {
+        addCircle();
+        iterator++;
+    } else if (iterator > ile) {
+        removeCircle();
+        iterator--;
     }
 
 
