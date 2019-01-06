@@ -10,18 +10,18 @@
         * {
             margin: 0;
             padding: 0;
-
+            box-sizing: border-box;
         }
 
-        canvas {
-            border: 1px solid black;
-            margin: 50px 150px;
-
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
         }
     </style>
 </head>
 
-<body>
+<body id="body">
     <canvas></canvas>
     <script src="canvas.js"></script>
 </body>

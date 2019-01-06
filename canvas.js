@@ -1,7 +1,10 @@
 var canvas = document.querySelector('canvas');
-console.log(canvas);
-canvas.height = 500;
-canvas.width = 700;
+var body = document.getElementById('body');
+var height = body.clientHeight;
+var width = body.clientWidth;
+console.log(height);
+canvas.height = height;
+canvas.width = width;
 
 
 var c = canvas.getContext('2d');
@@ -11,6 +14,9 @@ function ColorRand(min, max) {
 }
 
 
+
+
+
 function Circle(r, x, y, xd, yd, color) {
     this.r = r;
     this.x = x;
@@ -18,8 +24,9 @@ function Circle(r, x, y, xd, yd, color) {
     this.xd = xd;
     this.yd = yd;
 
-    this.drew = function () {
 
+
+    this.drew = function () {
 
         c.beginPath();
         c.arc(this.x, this.y, this.r, 0, Math.PI * 2, false)
@@ -27,9 +34,11 @@ function Circle(r, x, y, xd, yd, color) {
         c.fill();
     }
 
+
     this.bounce = function () {
         this.x = this.x + this.xd;
         this.y = this.y + this.yd;
+
 
 
         if (this.x + this.r >= canvas.width || this.x - this.r <= 0) {
@@ -40,6 +49,7 @@ function Circle(r, x, y, xd, yd, color) {
         if (this.y + this.r >= canvas.height || this.y - this.r <= 0) {
             this.yd = -this.yd;
         }
+
         this.drew();
     }
 }
@@ -57,12 +67,13 @@ for (i = 0; i < 100; i++) {
     var r = (Math.random() * 30) + 3;
     var x = Math.random() * (canvas.width - 2 * r) + r;
     var y = Math.random() * (canvas.height - 2 * r) + r;
-    var xd = (Math.random() - 0.5) * 5;
-    var yd = (Math.random() - 0.5) * 5;
+    var xd = (Math.random() - 0.5 * 5);
+    var yd = (Math.random() - 0.5 * 5);
     circles.push(new Circle(r, x, y, xd, yd, color));
 }
 
 console.log(circles);
+
 
 function move() {
     requestAnimationFrame(move);
@@ -72,6 +83,6 @@ function move() {
     }
 
 
-
 }
+
 move();
