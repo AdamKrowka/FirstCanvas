@@ -10,7 +10,7 @@ canvas.width = width;
 var c = canvas.getContext('2d');
 var mouseDistance = 100;
 var CircleCount = 200;
-var speed = 2;
+var speed = 5;
 
 function ColorRand(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
