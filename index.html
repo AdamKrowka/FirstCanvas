@@ -18,37 +18,16 @@
             height: 100vh;
             overflow: hidden;
         }
-        canvas{
+
+        canvas {
             border: 1px solid black;
             margin: 10px 10px;
-        }
-        p{
-            display: inline;
-            padding-left: 10px;
-        }
-        .speedRange , .slideRange{
-            display: inline;
-            padding-left: 20px;
         }
     </style>
 </head>
 
 <body id="body">
     <canvas></canvas>
-    <div id="slidery">
-        <div class="slideRange">
-            <p id="BallsCountP"></p>
-            <input type="range" min="1" max="400" value="100" class="slider" id="BallsCountRange">
-
-
-        </div>
-        <div class="speedRange">
-            <p id="SpeedP"></p>
-            <input type="range" min="1" max="10" value="5" class="slider" id="SpeedRange">
-
-
-        </div>
-    </div>
     <script src="canvas.js"></script>
 </body>
 
